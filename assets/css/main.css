@@ -128,7 +128,7 @@ input, select, textarea {
 	z-index: -1;
 	object-fit: cover; /* crop and cover while keeping center */
 	/* Keep the body background as the true fallback; no need for a redundant background image here */
-	pointer-events: none; /* let clicks pass through to the page */
+	/* pointer-events: none; *//*let clicks pass through to the page */
 }
 
 /* Ensure main page content is above the video */
@@ -3277,6 +3277,7 @@ input, select, textarea {
 		-ms-justify-content: center;
 		justify-content: center;
 		pointer-events: none;
+		z-index: 10010; /* ensure menu sits above most content (video/page) */
 		-moz-transition: opacity 0.35s ease, visibility 0.35s;
 		-webkit-transition: opacity 0.35s ease, visibility 0.35s;
 		-ms-transition: opacity 0.35s ease, visibility 0.35s;
@@ -3390,9 +3391,10 @@ input, select, textarea {
 	}
 
 	body.is-menu-visible #menu {
-		pointer-events: auto;
-		opacity: 1;
-		visibility: visible;
+			pointer-events: auto;
+			z-index: 10011; /* ensure visible menu is topmost */
+			opacity: 1;
+			visibility: visible;
 	}
 
 		body.is-menu-visible #menu .inner {
