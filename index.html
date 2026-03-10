@@ -14,6 +14,11 @@
 		</head>
 		
 		<body class="is-preload">
+			<!-- Background video (falls back to CSS background-image if video can't play) -->
+			<video id="bg-video" autoplay muted playsinline poster="images/bg.jpg">
+				<source src="images/subbox_movie_no_text.mp4" type="video/mp4">
+				<!-- Browsers that don't support the video tag will simply show the page background image -->
+			</video>
 			<!-- Page Wrapper -->
 				<div id="page-wrapper">
 
@@ -58,7 +63,7 @@
 							<!-- One -->
 								<section id="one" class="wrapper spotlight style1">
 									<div class="inner">
-										<a href="#" class="image"><img src="images/frame_3599.jpg" alt="" /></a>
+										<a href="#" class="image"><img src="images/frame_1900_square_no_text.jpg" alt="" /></a>
 										<div class="content">
 											<h2 class="major">Magna arcu feugiat</h2>
 											<p>Lorem ipsum dolor sit amet, etiam lorem adipiscing elit. Cras turpis ante, nullam sit amet turpis non, sollicitudin posuere urna. Mauris id tellus arcu. Nunc vehicula id nulla dignissim dapibus. Nullam ultrices, neque et faucibus viverra, ex nulla cursus.</p>
@@ -181,6 +186,47 @@
 				<script src="assets/js/breakpoints.min.js"></script>
 				<script src="assets/js/util.js"></script>
 				<script src="assets/js/main.js"></script>
+				<!-- Small helper: size the video to the viewport, remove poster when video starts, hide video if playback/autoplay fails -->
+				<script>
+				(function(){
+					var v = document.getElementById('bg-video');
+					if(!v) return;
+
+					function updateVideoSize(){
+						// Use viewport dimensions to ensure the video exactly matches the page size
+						v.style.width = window.innerWidth*1.1 + 'px';
+						v.style.height = window.innerHeight*1.1 + 'px';
+					}
+
+					// Initial sizing
+					updateVideoSize();
+					// Update on resize / orientation change
+					window.addEventListener('resize', updateVideoSize);
+					window.addEventListener('orientationchange', updateVideoSize);
+
+					// Try to play (some browsers return a promise and may block autoplay)
+					try {
+						var p = v.play && v.play();
+						if(p && typeof p.then === 'function') {
+							p.then(function(){
+								v.removeAttribute('poster');
+								v.classList.remove('bg-video-hidden');
+							}).catch(function(err){
+								// Autoplay blocked or failed: hide video so the CSS body background is visible
+								v.classList.add('bg-video-hidden');
+								console.log('Background video autoplay blocked or failed:', err);
+							});
+						}
+					} catch(e) {
+						// If synchronous errors occur, hide the video
+						v.classList.add('bg-video-hidden');
+					}
+
+					// If video starts playing later, ensure poster is removed and video is shown
+					v.addEventListener('playing', function(){ v.removeAttribute('poster'); v.classList.remove('bg-video-hidden'); });
+					v.addEventListener('error', function(){ v.classList.add('bg-video-hidden'); });
+				})();
+				</script>
 </div>
 </html>
 

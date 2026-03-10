@@ -110,6 +110,33 @@ input, select, textarea {
  center;
 	}
 
+/* Background video - sits above the body background image (fallback) but behind page content */
+#bg-video {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	/* Ensure the video always covers the viewport while preserving aspect ratio */
+	/* min-width: 80%; */
+	/* min-height: 80%;  */
+	min-width: none;
+	min-height: none;
+	width: auto; /*auto*/
+	height: auto; /*auto*/
+	max-width: none;
+	max-height: none;
+	transform: translate(-50%, -60%);
+	z-index: -1;
+	object-fit: cover; /* crop and cover while keeping center */
+	/* Keep the body background as the true fallback; no need for a redundant background image here */
+	pointer-events: none; /* let clicks pass through to the page */
+}
+
+/* Ensure main page content is above the video */
+#page-wrapper {
+	position: relative;
+	z-index: 1;
+}
+
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
 			-moz-animation: none !important;
 			-webkit-animation: none !important;
