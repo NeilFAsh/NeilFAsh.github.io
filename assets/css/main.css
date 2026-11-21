@@ -115,18 +115,15 @@ input, select, textarea {
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	/* Ensure the video always covers the viewport while preserving aspect ratio */
-	/* min-width: 80%; */
-	/* min-height: 80%;  */
 	min-width: none;
 	min-height: none;
-	width: auto; /*auto*/
-	height: auto; /*auto*/
+	width: 100vw; /*auto*/ /*100%*/
+	height: 100dvh; /*auto*/
 	max-width: none;
 	max-height: none;
 	transform: translate(-50%, -60%);
-	z-index: -1;
-	object-fit: cover; /* crop and cover while keeping center */
+	z-index: -1; /*-1;*/
+	object-fit: cover;  /* was 'cover', change to 'contain' crop and cover while keeping center */
 	/* Keep the body background as the true fallback; no need for a redundant background image here */
 	/* pointer-events: none; *//*let clicks pass through to the page */
 }
@@ -2690,11 +2687,13 @@ input, select, textarea {
 	ul.contact {
 		list-style: none;
 		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
 	}
 
 		ul.contact li {
 			text-decoration: none;
-			margin: 2.5em 0 0 0;
+			margin: 0 2em 0 0;
 			padding: 0 0 0 3.25em;
 			position: relative;
 		}
@@ -2733,7 +2732,7 @@ input, select, textarea {
 		@media screen and (max-width: 736px) {
 
 			ul.contact li {
-				margin: 1.5em 0 0 0;
+				margin: 0 1.5em 1.5em 0;
 			}
 
 		}
@@ -3495,12 +3494,8 @@ input, select, textarea {
 
 			#banner {
 				padding: 7em 0 8.25em 0 ;
-				background-color: #2e3141;
-				background-image: linear-gradient(to top, rgba(46, 49, 65, 0.2), rgba(46, 49, 65, 0.2)), url("../../images/bg.jpg");
-				background-size: auto,
- cover;
-				background-position: center,
- center;
+				background-color: transparent;
+				background-image: none;
 				margin-bottom: -6.5em;
 			}
 
@@ -4065,7 +4060,7 @@ input, select, textarea {
 		}
 
 		#footer .inner .contact {
-			width: calc(50% - 1.5em);
+			width: 100%;
 		}
 
 		#footer .inner .copyright {
@@ -4183,4 +4178,90 @@ input, select, textarea {
 			padding: 2em 1.5em 0.1em 1.5em ;
 		}
 
+	}
+
+/* Top banner navigation */
+
+	#header {
+		transition: height 0.25s ease-in-out, background-color 0.25s ease-in-out;
+	}
+
+	#header:not(.alt) {
+		height: 2.75em;
+		line-height: 2.75em;
+	}
+
+	#header:not(.alt) h1 {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	#header:not(.alt) nav.top-menu {
+		height: 2.75em;
+		line-height: 2.75em;
+		top: 0;
+	}
+
+	#header nav.top-menu {
+		align-items: center;
+		display: flex;
+		gap: 0.15em;
+		height: 3.5em;
+		justify-content: flex-end;
+		left: auto;
+		line-height: 3.5em;
+		position: absolute;
+		right: 1.25em;
+		top: 0;
+		white-space: nowrap;
+	}
+
+		#header nav.top-menu a {
+			align-items: center;
+			display: inline-flex;
+			height: 100%;
+			padding: 0 0.85em;
+			text-decoration: none;
+			transition: background-color 0.2s ease-in-out;
+		}
+
+			#header nav.top-menu a:hover,
+			#header nav.top-menu a:active {
+				background-color: rgba(255, 255, 255, 0.075);
+			}
+
+	@media screen and (max-width: 736px) {
+
+		#header nav.top-menu {
+			height: 2.75em;
+			line-height: 2.75em;
+			right: 0.5em;
+		}
+
+			#header nav.top-menu a {
+				font-size: 0.9em;
+				padding: 0 0.55em;
+			}
+	}
+
+	@media screen and (max-width: 480px) {
+
+		#header h1 {
+			display: none;
+		}
+
+		#header nav.top-menu {
+			justify-content: space-between;
+			left: 0;
+			overflow-x: visible;
+			right: 0;
+			width: 100%;
+		}
+
+			#header nav.top-menu a {
+				flex: 1 1 0;
+				font-size: 0.65em;
+				justify-content: center;
+				padding: 0 0.25em;
+			}
 	}
