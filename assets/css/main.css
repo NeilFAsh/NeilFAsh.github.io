@@ -156,7 +156,7 @@ input, select, textarea {
 	min-width: none;
 	min-height: none;
 	width: 100vw; /*auto*/ /*100%*/
-	height: 100dvh; /*auto*/
+	height: 100vh; /*auto*/ /*was dvh, caused jumping of the video on mobile*/
 	max-width: none;
 	max-height: none;
 	transform: translate(-50%, -60%);
